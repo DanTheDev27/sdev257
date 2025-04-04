@@ -7,10 +7,10 @@ const Task = (props) => {
         // Main container
         <View style={styles.item}>
             <View style={styles.itemLeft}>
-              <View style={styles.square}></View> {/** Empty view for square */}
-              <Text style={styles.itemText}>{props.text}</Text>  {/** Text for our items */}
-            </View> {/** Closing of itemLeft */}
-            <View style={styles.circular}></View> {/** Empty view for circle */}
+              <View style={styles.square}></View> {/* Empty view for square */}
+              <Text style={styles.itemText}>{props.text}</Text>  {/* Text for our items */}
+            </View> {/* Closing of itemLeft */}
+            <View style={styles.circular}></View> {/* Empty view for circle */}
         </View>
     )
 }

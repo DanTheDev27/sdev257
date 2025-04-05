@@ -26,4 +26,13 @@ export default StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
   },
+  filmsItem: {
+    paddingBottom: 20,
+  },
+  planetItem: {
+    paddingBottom: 20,
+  },
+  spaceshipItem: {
+    paddingBottom: 20,
+  },
 });

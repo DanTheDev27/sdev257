@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Button, StatusBar, FlatList, ActivityIndicator } from 
   "react-native";
+import { SearchInput } from "./components/searchInput";
+import { SearchModal } from "./components/searchModal";
 import styles from "./styles";
 
 const fetchFilms = async () => {
@@ -15,7 +17,11 @@ const fetchFilms = async () => {
 
 export default function Films({ navigation }) {
   const [Films, setFilms] = useState([]);
-    const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+
+  {/* state hooks for the search */}
+  const [searchTerm, setSearchTerm] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
       const getFilms = async () => {
@@ -36,26 +42,43 @@ export default function Films({ navigation }) {
           );
         }
 
+  const handleSearchSubmit = (text) => {
+    setSearchTerm(text);
+    setModalVisible(true);
+  };
+
   return (
     // Main container view
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      {/** Title and buttons container */}
+      {/* Title and buttons container */}
       <View style={styles.topContainer}>
-        <Text style={styles.Text}>Star Wars Films</Text>
-        {/** Button container */}
+      <Text style={styles.Text}>Star Wars Films</Text>
+
+        <SearchInput onSubmit={handleSearchSubmit}/>
+                
+        <SearchModal 
+        visible={modalVisible}
+        text={searchTerm}
+        onClose={ ()=> setModalVisible(false) }
+        />
+
+        {/* Button container */}
         <View style={styles.buttonContainer}>
           <Button
             title="Home"
             onPress={() => navigation.navigate("Home")}
+            color= '#D8C021'
           />
           <Button
             title="Planets"
             onPress={() => navigation.navigate("Planets")}
+            color= '#D8C021'
           />
           <Button
             title="Spaceships"
             onPress={() => navigation.navigate("Spaceships")}
+            color= '#D8C021'
           />
         </View>
       </View>
@@ -64,7 +87,7 @@ export default function Films({ navigation }) {
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           <View style={styles.filmsItem}>
-            <Text>{item.properties.title}</Text>
+            <Text style={styles.renderedText}>{item.properties.title}</Text>
           </View>
         )}
       />

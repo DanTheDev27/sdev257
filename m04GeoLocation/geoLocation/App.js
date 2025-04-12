@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, StatusBar } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
+{/* Seperated stylesheet importing here*/}
 import styles from "./styles";
 
 StatusBar.setBarStyle("dark-content");
@@ -24,6 +25,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      {/* Mapview is used to render your location and points of interest */}
       <MapView
         style={styles.mapView}
         showsPointsOfInterest={true}
@@ -40,6 +42,8 @@ export default function App() {
             : undefined
         }
       >
+        {/* Used <Marker /> to render locations
+        Add all locations here */}
         <Marker
           title="Ivy Tech Sellersburg"
           description="Home Campus"

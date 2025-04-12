@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
 
+{/* Dont forget to export default the stylesheet*/}
+{/* have to set the width and height for the mapView object */}
 export default StyleSheet.create({
   container: {
     flex: 1,

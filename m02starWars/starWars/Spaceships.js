@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Button, StatusBar, FlatList, ActivityIndicator } from 
+import { View, Text, Button, StatusBar, FlatList, ActivityIndicator, Modal } from 
   "react-native";
 import { SearchInput } from "./components/searchInput";
 import { SearchModal } from "./components/searchModal";
 import styles from "./styles";
+import Swipeable from "./components/Swipeable";
 
 // Function to fetch planets data from API
 const fetchSpaceShips = async () => {
   try {
     const response = await fetch('https://www.swapi.tech/api/starships/');
     const data = await response.json();
-    console.log(JSON.stringify(data.results[0].name,null,1));
+    console.log(data.results[0].name);
     return data.results;
   } catch (error) {
     console.error('Error fetching spaceships:', error);
@@ -25,6 +26,10 @@ export default function Spaceships({ navigation }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
 
+  // state hooks for info modal
+  const [selectedShipName, setSelectedShipName] = useState(null);
+  const [infoModalVisible, setInfoModalVisible] = useState(false);
+
   useEffect(() => {
     const getSpaceShips = async () => {
       const data = await fetchSpaceShips();
@@ -34,6 +39,11 @@ export default function Spaceships({ navigation }) {
 
     getSpaceShips();
   }, []);
+
+  // Spaceship deletion by index
+  const deleteItem = (indexToDelete) => {
+    setSpaceShips((prev) => prev.filter((_,i) => i !== indexToDelete));
+  };
 
   if (loading) {
       return (
@@ -87,12 +97,37 @@ export default function Spaceships({ navigation }) {
       <FlatList
         data={spaceships}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.spaceshipItem}>
-            <Text style={styles.renderedText}>{item.name}</Text>
-          </View>
+        renderItem={({ item, index }) => (
+          // <View style={styles.spaceshipItem}>
+          //   <Text style={styles.renderedText}>{item.name}</Text>
+          // </View>
+          // <Swipeable
+          // name={item.name}
+          // onSwipe={() => deleteItem(index)}
+          // />
+          <Swipeable 
+          name={item.name}
+          onSwipe={() => {
+            setSelectedShipName(item.name);
+            setInfoModalVisible(true);
+            }}
+          />
         )}
       />
+      <Modal
+      visible={infoModalVisible}
+      animationType="slide"
+      transparent={true}
+      onRequestClose={() => setInfoModalVisible(false)}
+      >
+        <View style={styles.overlay}>
+          <View style={styles.modal}>
+            <Text style={styles.text}>SpaceShip name: {selectedShipName}</Text>
+            <Button title="Close" onPress={() => setInfoModalVisible(false)} color="#D8C021" />
+          </View>
+        </View>
+      </Modal>
+      
     </View>
   );
 }

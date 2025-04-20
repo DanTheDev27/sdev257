@@ -74,4 +74,46 @@ export default StyleSheet.create({
     color: '#EDEDED',
     fontSize: 15,
   },
+
+  // swipeables
+  swipeContainer: {
+    flex: 1,
+    flexDirection: "row",
+    width: 200,
+    height: 40,
+    marginVertical: 5,
+    alignSelf: "center",
+  },
+  swipeItem: {
+    width: 200,
+    height: 40,
+    backgroundColor: "azure",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderRadius: 4,
+    borderColor: "slateGrey",
+  },
+  swipeItemText: {
+    textAlign: "center",
+    color: "slategrey",
+    fontWeight: "bold",
+  },
+  swipeBlank: {
+    width: 200,
+    height: 40,
+  },
+
+  // modal styling for swipeables
+  // infoModalOverlay: {
+  //   flex: 1,
+  //   backgroundColor: 'rgba(0,0,0,0.5)',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  // },
+  // infoModalContent: {
+  //   backgroundColor: 'white',
+  //   padding: 20,
+  //   borderRadius: 10,
+  //   width: '80%',
+  // },
 });

@@ -98,13 +98,6 @@ export default function Spaceships({ navigation }) {
         data={spaceships}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => (
-          // <View style={styles.spaceshipItem}>
-          //   <Text style={styles.renderedText}>{item.name}</Text>
-          // </View>
-          // <Swipeable
-          // name={item.name}
-          // onSwipe={() => deleteItem(index)}
-          // />
           <Swipeable 
           name={item.name}
           onSwipe={() => {

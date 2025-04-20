@@ -102,18 +102,4 @@ export default StyleSheet.create({
     width: 200,
     height: 40,
   },
-
-  // modal styling for swipeables
-  // infoModalOverlay: {
-  //   flex: 1,
-  //   backgroundColor: 'rgba(0,0,0,0.5)',
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  // },
-  // infoModalContent: {
-  //   backgroundColor: 'white',
-  //   padding: 20,
-  //   borderRadius: 10,
-  //   width: '80%',
-  // },
 });

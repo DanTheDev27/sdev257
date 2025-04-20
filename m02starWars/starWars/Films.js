@@ -96,9 +96,6 @@ export default function Films({ navigation }) {
         data={Films}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => (
-          // <View style={styles.filmsItem}>
-          //   <Text style={styles.renderedText}>{item.properties.title}</Text>
-          // </View>
           <Swipeable 
           name={item.properties.title}
           onSwipe={() => {

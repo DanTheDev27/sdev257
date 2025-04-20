@@ -100,10 +100,6 @@ export default function Planets({ navigation }) {
         data={planets}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => (
-          // commenting for testing
-          // <View style={styles.planetItem}>
-          //   <Text style={styles.renderedText}>{item.name || 'No name available'}</Text>
-          // </View>
           <Swipeable 
           name={item.name}
           onSwipe={() => {

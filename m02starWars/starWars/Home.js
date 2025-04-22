@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StatusBar } from 
+import { View, Text, TextInput, Button, StatusBar, Image, Animated, ActivityIndicator } from 
   "react-native";
 import styles from "./styles";
 import { SearchInput } from "./components/searchInput";
@@ -8,10 +8,22 @@ import { FontAwesome, Ionicons } from '@expo/vector-icons';
 export default function Home({ navigation }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+  const [loadingLogo, setLoadingLogo] = useState(true);
+  const fadeAnim = useState(new Animated.Value(0))[0]; // Initial opacity 0
+
 
   const handleSearchSubmit = (text) => {
     setSearchTerm(text);
     setModalVisible(true);
+  };
+
+  const handleLogoLoad = () => {
+    setLoadingLogo(false);
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
   };
 
   return (
@@ -20,6 +32,22 @@ export default function Home({ navigation }) {
       <StatusBar barStyle="dark-content" />
       {/* Title and buttons container */}
       <View style={styles.topContainer}>
+        
+      <View style={{ height: 100, justifyContent: 'center', alignItems: 'center' }}>
+          {loadingLogo && <ActivityIndicator size="large" color="#D8C021" style={{ position: "absolute" }} />}
+          <Animated.Image
+            source={{
+              uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/320px-Star_Wars_Logo.svg.png"
+            }}
+            onLoad={handleLogoLoad}
+            style={{
+              width: 250,
+              height: 100,
+              resizeMode: "contain",
+              opacity: fadeAnim,
+            }}
+          />
+        </View>
         <Text style={styles.Text}>SWAPI Galactic Guide</Text>
 
         {/* Search input field */}

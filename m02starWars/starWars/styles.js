@@ -11,7 +11,7 @@ export default StyleSheet.create({
   },
   Text: {
     fontSize: 40,
-    marginTop: -50,
+    marginTop: 30,
     color: '#FFE81F',
   },
   // Buttons container

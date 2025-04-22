@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Button, StatusBar, FlatList, ActivityIndicator, Modal } from 
+import { View, Text, Button, StatusBar, FlatList, ActivityIndicator, Modal, Animated,} from 
   "react-native";
 import { SearchInput } from "./components/searchInput";
 import { SearchModal } from "./components/searchModal";
@@ -19,6 +19,8 @@ const fetchFilms = async () => {
 export default function Films({ navigation }) {
   const [Films, setFilms] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingLogo, setLoadingLogo] = useState(true);
+  const fadeAnim = useState(new Animated.Value(0))[0]; // Initial opacity 0
 
   // state hooks for the search 
   const [searchTerm, setSearchTerm] = useState('');
@@ -57,12 +59,38 @@ export default function Films({ navigation }) {
     setModalVisible(true);
   };
 
+  const handleLogoLoad = () => {
+      setLoadingLogo(false);
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
+    };
+
   return (
     // Main container view
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
       {/* Title and buttons container */}
       <View style={styles.topContainer}>
+
+      <View style={{ height: 100, justifyContent: 'center', alignItems: 'center' }}>
+          {loadingLogo && <ActivityIndicator size="large" color="#D8C021" style={{ position: "absolute" }} />}
+          <Animated.Image
+            source={{
+              uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/320px-Star_Wars_Logo.svg.png"
+            }}
+            onLoad={handleLogoLoad}
+            style={{
+              width: 250,
+              height: 100,
+              resizeMode: "contain",
+              opacity: fadeAnim,
+            }}
+          />
+        </View>
+
       <Text style={styles.Text}>Star Wars Films</Text>
 
         <SearchInput onSubmit={handleSearchSubmit}/>

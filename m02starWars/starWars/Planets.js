@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Button, StatusBar, FlatList, ActivityIndicator,Modal } from "react-native";
+import { View, Text, Button, StatusBar, FlatList, ActivityIndicator,Modal, Animated, } from "react-native";
 import { SearchInput } from "./components/searchInput";
 import { SearchModal } from "./components/searchModal";
 import styles from "./styles";
@@ -20,6 +20,8 @@ const fetchPlanets = async () => {
 export default function Planets({ navigation }) {
   const [planets, setPlanets] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingLogo, setLoadingLogo] = useState(true);
+  const fadeAnim = useState(new Animated.Value(0))[0]; // Initial opacity 0
 
   // State hooks for the search
   const [searchTerm, setSearchTerm] = useState('');
@@ -60,11 +62,37 @@ export default function Planets({ navigation }) {
     setModalVisible(true);
   };
 
+  const handleLogoLoad = () => {
+        setLoadingLogo(false);
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 500,
+          useNativeDriver: true,
+        }).start();
+      };
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
       {/* // Title and buttons container  */}
       <View style={styles.topContainer}>
+
+      <View style={{ height: 100, justifyContent: 'center', alignItems: 'center' }}>
+          {loadingLogo && <ActivityIndicator size="large" color="#D8C021" style={{ position: "absolute" }} />}
+          <Animated.Image
+            source={{
+              uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/320px-Star_Wars_Logo.svg.png"
+            }}
+            onLoad={handleLogoLoad}
+            style={{
+              width: 250,
+              height: 100,
+              resizeMode: "contain",
+              opacity: fadeAnim,
+            }}
+          />
+        </View>
+
         <Text style={styles.Text}>Star Wars Planets</Text>
 
         {/* Search input field */}

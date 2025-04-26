@@ -8,10 +8,13 @@ import Films from "./Films";
 import Planets from "./Planets";
 import Spaceships from "./Spaceships";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NetworkProvider } from "./providers/NetworkProviders";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
+    // Wrapping all screens with network provider to check for network connection
+    <NetworkProvider>
     // Navigation container for page routing
     <NavigationContainer>
       <Stack.Navigator>
@@ -22,5 +25,6 @@ export default function App() {
         <Stack.Screen name="Spaceships" component={Spaceships} />
       </Stack.Navigator>
     </NavigationContainer>
+    </NetworkProvider>
   );
 }

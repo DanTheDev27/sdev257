@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text, TextInput, Button, StatusBar, Image, Animated, ActivityIndicator } from 
   "react-native";
+  import NetInfo from "@react-native-community/netinfo";
 import styles from "./styles";
 import { SearchInput } from "./components/searchInput";
 import { SearchModal } from "./components/searchModal";
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
+import { NetworkContext } from "./providers/NetworkProviders";
+
 export default function Home({ navigation }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [loadingLogo, setLoadingLogo] = useState(true);
+  // Grabbing network state
+  const { isConnected } = useContext(NetworkContext);
+
   const fadeAnim = useState(new Animated.Value(0))[0]; // Initial opacity 0
 
 
@@ -30,6 +36,13 @@ export default function Home({ navigation }) {
     // Main container view
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
+      {!isConnected && (
+        <View style={{ backgroundColor: 'red', padding: 10 }}>
+          <Text style={{ color: 'white', textAlign: 'center' }}>You are offline</Text>
+        </View>
+      )}
+
+
       {/* Title and buttons container */}
       <View style={styles.topContainer}>
         

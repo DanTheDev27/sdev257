@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, Text, Button, StatusBar, FlatList, ActivityIndicator, Modal, Animated,} from 
   "react-native";
 import { SearchInput } from "./components/searchInput";
 import { SearchModal } from "./components/searchModal";
 import styles from "./styles";
 import Swipeable from "./components/Swipeable";
+import { NetworkContext } from "./providers/NetworkProviders";
+
 
 const fetchFilms = async () => {
   try{
@@ -20,6 +22,8 @@ export default function Films({ navigation }) {
   const [Films, setFilms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingLogo, setLoadingLogo] = useState(true);
+  // Grabbing network state
+  const { isConnected } = useContext(NetworkContext);
   const fadeAnim = useState(new Animated.Value(0))[0]; // Initial opacity 0
 
   // state hooks for the search 
@@ -72,6 +76,11 @@ export default function Films({ navigation }) {
     // Main container view
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
+      {!isConnected && (
+        <View style={{ backgroundColor: 'red', padding: 10 }}>
+        <Text style={{ color: 'white', textAlign: 'center' }}>You are offline</Text>
+        </View>
+      )}
       {/* Title and buttons container */}
       <View style={styles.topContainer}>
 

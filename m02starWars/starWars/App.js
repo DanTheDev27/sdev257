@@ -15,7 +15,7 @@ export default function App() {
   return (
     // Wrapping all screens with network provider to check for network connection
     <NetworkProvider>
-    // Navigation container for page routing
+    {/* Navigation container for page routing */}
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={Home} />

@@ -30,7 +30,7 @@ export default function Spaceships({ navigation }) {
 
   {/* state hooks for the search */}
   const [searchTerm, setSearchTerm] = useState('');
-  const [modalVisible, setModalVisible] = useState(false);
+  // const [modalVisible, setModalVisible] = useState(false);
 
   // state hooks for info modal
   const [selectedShipName, setSelectedShipName] = useState(null);
@@ -45,6 +45,8 @@ export default function Spaceships({ navigation }) {
 
     getSpaceShips();
   }, []);
+
+  const filteredSpaceships = spaceships.filter(spaceship => spaceship.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
   // Spaceship deletion by index
   const deleteItem = (indexToDelete) => {
@@ -62,7 +64,7 @@ export default function Spaceships({ navigation }) {
 
   const handleSearchSubmit = (text) => {
     setSearchTerm(text);
-    setModalVisible(true);
+    // setModalVisible(true);
   };
 
   const handleLogoLoad = () => {
@@ -106,11 +108,11 @@ export default function Spaceships({ navigation }) {
 
         <SearchInput onSubmit={handleSearchSubmit}/>
 
-        <SearchModal 
+        {/* <SearchModal 
         visible={modalVisible}
         text={searchTerm}
         onClose={ ()=> setModalVisible(false) }
-        />
+        /> */}
 
         {/* Buttons container */}
         <View style={styles.buttonContainer}>
@@ -132,7 +134,7 @@ export default function Spaceships({ navigation }) {
         </View>
       </View>
       <FlatList
-        data={spaceships}
+        data={filteredSpaceships}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => (
           <Swipeable 

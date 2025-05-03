@@ -29,7 +29,7 @@ export default function Planets({ navigation }) {
 
   // State hooks for the search
   const [searchTerm, setSearchTerm] = useState('');
-  const [modalVisible, setModalVisible] = useState(false);
+  // const [modalVisible, setModalVisible] = useState(false);
 
   // State hooks for the swipe modal
   const [selectedPlanetName, setSelectedPlanetName] = useState(null);
@@ -47,6 +47,8 @@ export default function Planets({ navigation }) {
     getPlanets();
   }, []);
 
+  const filteredPlanets = planets.filter(planet => planet.name.toLowerCase().includes(searchTerm.toLowerCase()));
+
   // Planet deletion by index
   const deleteItem = (indexToDelete) => {
     setPlanets((prev) => prev.filter((_,i) => i !== indexToDelete));
@@ -63,7 +65,7 @@ export default function Planets({ navigation }) {
   // Handle search submit
   const handleSearchSubmit = (text) => {
     setSearchTerm(text);
-    setModalVisible(true);
+    // setModalVisible(true);
   };
 
   const handleLogoLoad = () => {
@@ -108,11 +110,11 @@ export default function Planets({ navigation }) {
         <SearchInput onSubmit={handleSearchSubmit}/>
         
         {/* Seach modal display */}
-        <SearchModal 
+        {/* <SearchModal 
         visible={modalVisible}
         text={searchTerm}
         onClose={ ()=> setModalVisible(false) }
-        />
+        /> */}
 
         {/* Buttons container */}
         <View style={styles.buttonContainer}>
@@ -134,7 +136,7 @@ export default function Planets({ navigation }) {
         </View> {/* End of buttons container */}
       </View> {/* End of title and buttons container */}
       <FlatList
-        data={planets}
+        data={filteredPlanets}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => (
           <Swipeable 

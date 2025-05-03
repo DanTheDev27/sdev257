@@ -17,12 +17,13 @@ export default function Home({ navigation }) {
 
   const fadeAnim = useState(new Animated.Value(0))[0]; // Initial opacity 0
 
-
+  // Handle user input here
   const handleSearchSubmit = (text) => {
     setSearchTerm(text);
     setModalVisible(true);
   };
 
+  // Handle the logo loading on a delay
   const handleLogoLoad = () => {
     setLoadingLogo(false);
     Animated.timing(fadeAnim, {

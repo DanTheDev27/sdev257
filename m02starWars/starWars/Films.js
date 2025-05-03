@@ -19,7 +19,7 @@ const fetchFilms = async () => {
 }
 
 export default function Films({ navigation }) {
-  const [Films, setFilms] = useState([]);
+  const [films, setFilms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingLogo, setLoadingLogo] = useState(true);
   // Grabbing network state
@@ -28,7 +28,8 @@ export default function Films({ navigation }) {
 
   // state hooks for the search 
   const [searchTerm, setSearchTerm] = useState('');
-  const [modalVisible, setModalVisible] = useState(false);
+  // Removing modal state hook while testing user search
+  // const [modalVisible, setModalVisible] = useState(false);
 
   // state hooks for the info modal
   const [selectedFilmTitle, setSelectedFilmTitle] = useState(null);
@@ -43,6 +44,8 @@ export default function Films({ navigation }) {
 
       getFilms();
     }, []);
+
+    const filteredFilms = films.filter(film => film.properties.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
     // Film deletion by index
     const deleteItem = (indexToDelete) => {
@@ -60,7 +63,7 @@ export default function Films({ navigation }) {
 
   const handleSearchSubmit = (text) => {
     setSearchTerm(text);
-    setModalVisible(true);
+    // setModalVisible(true);
   };
 
   const handleLogoLoad = () => {
@@ -103,12 +106,12 @@ export default function Films({ navigation }) {
       <Text style={styles.Text}>Star Wars Films</Text>
 
         <SearchInput onSubmit={handleSearchSubmit}/>
-                
-        <SearchModal 
+             {/* Removing search modal for testing */}
+        {/* <SearchModal 
         visible={modalVisible}
         text={searchTerm}
         onClose={ ()=> setModalVisible(false) }
-        />
+        /> */}
 
         {/* Button container */}
         <View style={styles.buttonContainer}>
@@ -130,7 +133,7 @@ export default function Films({ navigation }) {
         </View>
       </View>
       <FlatList
-        data={Films}
+        data={filteredFilms} // using filteredFilms instead of films
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => (
           <Swipeable 

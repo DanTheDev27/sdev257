@@ -7,6 +7,7 @@ import Settings from "./Settings";
 import Films from "./Films";
 import Planets from "./Planets";
 import Spaceships from "./Spaceships";
+import FilmDetail from './FilmDetail';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NetworkProvider } from "./providers/NetworkProviders";
 const Stack = createNativeStackNavigator();
@@ -23,6 +24,7 @@ export default function App() {
         <Stack.Screen name="Films" component={Films} />
         <Stack.Screen name="Planets" component={Planets} />
         <Stack.Screen name="Spaceships" component={Spaceships} />
+        <Stack.Screen name="FilmDetail" component={FilmDetail} />
       </Stack.Navigator>
     </NavigationContainer>
     </NetworkProvider>

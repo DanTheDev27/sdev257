@@ -139,8 +139,9 @@ export default function Films({ navigation }) {
           <Swipeable 
           name={item.properties.title}
           onSwipe={() => {
-            setSelectedFilmTitle(item.properties.title);
-            setInfoModalVisible(true);
+            // setSelectedFilmTitle(item.properties.title);
+            // setInfoModalVisible(true); //commenting out for testing
+            navigation.navigate('FilmDetail', { uid: item.uid });
           }}
           />
         )}

@@ -102,4 +102,9 @@ export default StyleSheet.create({
     width: 200,
     height: 40,
   },
+  // film details
+  title: { fontSize: 24, fontWeight: 'bold', color: '#D8C021', marginBottom: 20 },
+  label: { fontSize: 16, fontWeight: '600', color: 'white', marginTop: 10 },
+  value: { fontWeight: 'normal' },
+  crawl: { fontSize: 14, color: '#ccc', marginTop: 10 }
 });
